@@ -7,3 +7,9 @@ create table forum (
               REFERENCES user_account (id) MATCH SIMPLE
               ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+insert into forum (name,description,created_by)
+VALUES('General', 'General Discussion', 1);
+
+insert into forum (name,description,created_by)
+VALUES('Pictures', 'A place to post pictures', 1);
