@@ -2,8 +2,6 @@ create table thread (
     id bigserial primary key,
     forum_id bigint NOT NULL,
     user_id bigint NOT NULL,
-    title varchar(100) not null,
-    message varchar(1000) not null,
     CONSTRAINT fk1_thread_forum FOREIGN KEY (forum_id)
           REFERENCES forum (id) MATCH SIMPLE
           ON UPDATE CASCADE ON DELETE CASCADE,
@@ -11,3 +9,5 @@ create table thread (
               REFERENCES user_account (id) MATCH SIMPLE
               ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+insert into thread (forum_id, user_id)VALUES(1, 1);
