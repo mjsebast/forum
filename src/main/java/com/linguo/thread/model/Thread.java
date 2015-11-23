@@ -1,7 +1,7 @@
-package com.linguo.thread;
+package com.linguo.thread.model;
 
 import com.linguo.forum.Forum;
-import com.linguo.users.UserAccount;
+import com.linguo.users.model.UserAccount;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -20,7 +20,7 @@ public class Thread {
     private UserAccount user;
     private String languageId;
     private String url;
-    @OneToMany(mappedBy = "thread")
+    @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL)
     private Set<ThreadContent> content;
 
     public Long getId() {

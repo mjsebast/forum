@@ -1,4 +1,7 @@
-package com.linguo.thread;
+package com.linguo.thread.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.linguo.thread.model.Thread;
 
 import javax.persistence.*;
 
@@ -10,6 +13,7 @@ public class ThreadContent {
 
     @ManyToOne
     @JoinColumn(name="thread_id", nullable=false)
+    @JsonIgnore
     private Thread thread;
     private String languageId;
     private String title;

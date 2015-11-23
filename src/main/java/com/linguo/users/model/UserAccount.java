@@ -1,4 +1,4 @@
-package com.linguo.users;
+package com.linguo.users.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

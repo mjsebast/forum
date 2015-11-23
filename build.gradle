@@ -28,7 +28,7 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.springframework.boot:spring-boot-starter-data-rest")
+    //compile("org.springframework.boot:spring-boot-starter-data-rest")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.postgresql:postgresql:9.3-1102-jdbc41")
     // tag::security[]

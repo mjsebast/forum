@@ -1,8 +1,7 @@
-package com.linguo.thread;
+package com.linguo.thread.repository;
 
+import com.linguo.thread.model.ThreadContent;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-@RepositoryRestResource(exported = false)
 public interface ThreadContentRepository extends PagingAndSortingRepository<ThreadContent, Long> {
 }

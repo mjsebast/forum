@@ -16,3 +16,4 @@ create table thread (
 );
 
 insert into thread (forum_id, user_id, language_id)VALUES(1, 1, 'en');
+insert into thread (forum_id, user_id, language_id)VALUES(1, 1, 'en');

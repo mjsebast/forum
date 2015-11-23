@@ -14,3 +14,8 @@ create table thread_content (
 
 insert into thread_content (thread_id, language_id, title, message)VALUES(1, 'en', 'Hello', 'Hello man!');
 insert into thread_content (thread_id, language_id, title, message)VALUES(1, 'es', 'Hola', 'Hola hombre!');
+
+insert into thread_content (thread_id, language_id, title, message)
+VALUES(2, 'en', 'This is an awesome title', ' Wow, I really cant believe how awesome this title is. Can you? This is really amazing to be honest with you. Were living the dream.');
+insert into thread_content (thread_id, language_id, title, message)
+VALUES(2, 'es', 'Este es un título increíble', 'Realmente no puedo creer lo increíble este título es . ¿Puedes? Esto es realmente increíble para ser honesto con usted. Estamos viviendo el sueño.');
