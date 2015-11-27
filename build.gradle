@@ -31,6 +31,7 @@ dependencies {
     //compile("org.springframework.boot:spring-boot-starter-data-rest")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.postgresql:postgresql:9.3-1102-jdbc41")
+    compile("com.memetix:microsoft-translator-java-api:0.6.2")
     // tag::security[]
     //compile("org.springframework.boot:spring-boot-starter-security")
     // end::security[]

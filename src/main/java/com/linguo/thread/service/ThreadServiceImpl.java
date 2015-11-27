@@ -5,8 +5,13 @@ import com.linguo.thread.dto.ThreadDTO;
 import com.linguo.thread.model.Thread;
 import com.linguo.thread.model.ThreadContent;
 import com.linguo.thread.repository.ThreadRepository;
+import com.linguo.translate.dto.TranslationDTO;
+import com.linguo.translate.service.TranslationService;
 import com.linguo.users.model.UserAccount;
+import com.memetix.mst.language.Language;
+import com.memetix.mst.translate.Translate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +28,11 @@ import java.util.Set;
 public class ThreadServiceImpl {
     @Autowired
     ThreadRepository threadRepository;
+
+    @Autowired
+    TranslationService translationService;
+
+
 
     public ThreadDTO findById(Long id){
         return new ThreadDTO(threadRepository.findOne(id));
@@ -47,13 +57,29 @@ public class ThreadServiceImpl {
         UserAccount user = new UserAccount();
         user.setId(1L);
         entity.setUser(user);
+        entity.setUrl(dto.getUrl());
         Set<ThreadContent> contents = new HashSet<ThreadContent>();
         for(String key: dto.getContent().keySet()){
             ThreadContent content = dto.getContent().get(key);
             content.setThread(entity);
+            content.setLanguageId(key);
             contents.add(content);
+
+            TranslationDTO translationDTO = new TranslationDTO(key, key.equals("en")?"es":"en");
+            translationDTO.addText(content.getMessage());
+            translationDTO.addText(content.getTitle());
+            String[] translations = translationService.translateContent(translationDTO);
+
+            ThreadContent secondary = new ThreadContent();
+            secondary.setLanguageId(translationDTO.getTo());
+            secondary.setMessage(translations[0]);
+            secondary.setTitle(translations[1]);
+            secondary.setThread(entity);
+            contents.add(secondary);
         }
         entity.setContent(contents);
         return new ThreadDTO(threadRepository.save(entity));
     }
+
+
 }

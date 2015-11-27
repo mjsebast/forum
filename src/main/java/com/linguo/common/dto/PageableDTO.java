@@ -1,4 +1,4 @@
-package com.linguo.common;
+package com.linguo.common.dto;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
