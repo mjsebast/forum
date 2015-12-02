@@ -15,7 +15,7 @@ public class PageableDTO implements Pageable {
     private Sort sort;
 
     public PageableDTO() {
-        super();
+
     }
 
     public PageableDTO(String query, Integer page, Integer limit, Sort sort) {

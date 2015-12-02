@@ -8,20 +8,18 @@ import com.linguo.thread.repository.ThreadRepository;
 import com.linguo.translate.dto.TranslationDTO;
 import com.linguo.translate.service.TranslationService;
 import com.linguo.users.model.UserAccount;
-import com.memetix.mst.language.Language;
-import com.memetix.mst.translate.Translate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -32,20 +30,15 @@ public class ThreadServiceImpl {
     @Autowired
     TranslationService translationService;
 
-
-
     public ThreadDTO findById(Long id){
         return new ThreadDTO(threadRepository.findOne(id));
     }
 
     public Page<ThreadDTO> findByPage(Pageable pageable){
         Page<Thread> threads = threadRepository.findAll(pageable);
-        List<ThreadDTO> dtos = new ArrayList<ThreadDTO>();
-        for(Thread thread: threads){
-            dtos.add(new ThreadDTO(thread));
-        }
-        Page<ThreadDTO> pagedDtos = new PageImpl<ThreadDTO>(dtos,pageable, threads.getTotalElements());
-        return pagedDtos;
+        List<ThreadDTO> dtos = threads.getContent().stream()
+                .map(ThreadDTO:: new).collect(Collectors.toList());
+        return new PageImpl<>(dtos, pageable, threads.getTotalElements());
     }
 
     public ThreadDTO create(ThreadDTO dto){
