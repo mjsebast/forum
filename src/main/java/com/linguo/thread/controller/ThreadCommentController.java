@@ -6,10 +6,9 @@ import com.linguo.thread.dto.ThreadCommentFilterDTO;
 import com.linguo.thread.service.ThreadCommentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping(value="/thread_comments")
 public class ThreadCommentController {
 
@@ -22,8 +21,13 @@ public class ThreadCommentController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody Page<ThreadCommentDTO> getPage(ThreadCommentFilterDTO filter, PageableDTO pageableDTO){
+    public Page<ThreadCommentDTO> getPage(ThreadCommentFilterDTO filter, PageableDTO pageableDTO){
         return threadCommentService.findByPage(filter, pageableDTO);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ThreadCommentDTO create(@RequestBody ThreadCommentDTO dto){
+        return threadCommentService.create(dto);
     }
 
 }

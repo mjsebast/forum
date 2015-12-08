@@ -8,4 +8,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface ThreadCommentRepository extends PagingAndSortingRepository<ThreadComment, Long> {
     Page<ThreadComment> findByThreadId(Long threadId, Pageable pageable);
+    Page<ThreadComment> findByThreadIdAndParentIdIsNull(Long threadId, Pageable pageable);
 }

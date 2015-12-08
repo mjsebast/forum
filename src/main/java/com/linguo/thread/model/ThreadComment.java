@@ -19,8 +19,16 @@ public class ThreadComment {
     @ManyToOne
     @JoinColumn(name="thread_id", nullable=false)
     private Thread thread;
+
     @OneToMany(mappedBy = "threadComment", cascade = CascadeType.ALL)
     private Set<ThreadCommentContent> content;
+
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    private Set<ThreadComment> children;
+
+    @ManyToOne
+    @JoinColumn(name="parent_id")
+    private ThreadComment parent;
 
     private String languageId;
 
@@ -62,5 +70,21 @@ public class ThreadComment {
 
     public void setContent(Set<ThreadCommentContent> content) {
         this.content = content;
+    }
+
+    public Set<ThreadComment> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Set<ThreadComment> children) {
+        this.children = children;
+    }
+
+    public ThreadComment getParent() {
+        return parent;
+    }
+
+    public void setParent(ThreadComment parent) {
+        this.parent = parent;
     }
 }
