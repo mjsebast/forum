@@ -1,10 +1,10 @@
-package com.linguo.translate.controller;
+package com.linguo.commenttranslate.controller;
 
 
 import com.linguo.common.dto.PageableDTO;
-import com.linguo.translate.dto.ThreadCommentTranslationDTO;
-import com.linguo.translate.dto.ThreadCommentTranslationFilterDTO;
-import com.linguo.translate.service.ThreadCommentTranslationServiceImpl;
+import com.linguo.commenttranslate.dto.ThreadCommentTranslationDTO;
+import com.linguo.commenttranslate.dto.ThreadCommentTranslationFilterDTO;
+import com.linguo.commenttranslate.service.ThreadCommentTranslationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;

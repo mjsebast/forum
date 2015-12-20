@@ -1,6 +1,6 @@
-package com.linguo.translate.service;
+package com.linguo.common.util;
 
-import com.linguo.translate.dto.TranslationDTO;
+import com.linguo.common.dto.TranslationDTO;
 import com.memetix.mst.language.Language;
 import com.memetix.mst.translate.Translate;
 import org.springframework.beans.factory.annotation.Autowired;

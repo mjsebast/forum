@@ -1,4 +1,4 @@
-package com.linguo.translate.dto;
+package com.linguo.commenttranslate.dto;
 
 
 public class ThreadCommentTranslationFilterDTO {

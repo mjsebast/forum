@@ -5,8 +5,8 @@ import com.linguo.thread.dto.ThreadDTO;
 import com.linguo.thread.model.Thread;
 import com.linguo.thread.model.ThreadContent;
 import com.linguo.thread.repository.ThreadRepository;
-import com.linguo.translate.dto.TranslationDTO;
-import com.linguo.translate.service.TranslationService;
+import com.linguo.common.dto.TranslationDTO;
+import com.linguo.common.util.TranslationService;
 import com.linguo.users.model.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

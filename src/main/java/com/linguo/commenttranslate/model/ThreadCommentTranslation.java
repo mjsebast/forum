@@ -1,4 +1,4 @@
-package com.linguo.translate.model;
+package com.linguo.commenttranslate.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.linguo.thread.model.ThreadComment;

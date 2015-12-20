@@ -1,4 +1,4 @@
-package com.linguo.translate.dto;
+package com.linguo.common.dto;
 
 
 import java.util.ArrayList;

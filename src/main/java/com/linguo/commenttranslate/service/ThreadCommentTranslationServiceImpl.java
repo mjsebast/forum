@@ -1,9 +1,12 @@
-package com.linguo.translate.service;
+package com.linguo.commenttranslate.service;
 
-import com.linguo.translate.dto.ThreadCommentTranslationDTO;
-import com.linguo.translate.dto.ThreadCommentTranslationFilterDTO;
-import com.linguo.translate.model.ThreadCommentTranslation;
-import com.linguo.translate.repository.ThreadCommentTranslationRepository;
+import com.linguo.commenttranslate.model.CommentTranslationVote;
+import com.linguo.commenttranslate.repository.CommentTranslationVoteRepository;
+import com.linguo.thread.model.ThreadComment;
+import com.linguo.commenttranslate.dto.ThreadCommentTranslationDTO;
+import com.linguo.commenttranslate.dto.ThreadCommentTranslationFilterDTO;
+import com.linguo.commenttranslate.model.ThreadCommentTranslation;
+import com.linguo.commenttranslate.repository.ThreadCommentTranslationRepository;
 import com.linguo.users.model.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,9 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,9 +24,11 @@ public class ThreadCommentTranslationServiceImpl {
 
     @Autowired
     ThreadCommentTranslationRepository threadCommentTranslationRepository;
+    @Autowired
+    CommentTranslationVoteRepository commentTranslationVoteRepository;
 
     public ThreadCommentTranslationDTO findById(Long id){
-        return new ThreadCommentTranslationDTO(threadCommentTranslationRepository.findOne(id));
+        return getDTOFromEntity(threadCommentTranslationRepository.findOne(id));
     }
 
     public Page<ThreadCommentTranslationDTO> findByPage(ThreadCommentTranslationFilterDTO filter, Pageable pageable){
@@ -33,8 +36,17 @@ public class ThreadCommentTranslationServiceImpl {
                 threadCommentTranslationRepository.findByThreadCommentId(filter.getCommentId(), pageable):
                 threadCommentTranslationRepository.findAll(pageable);
         List<ThreadCommentTranslationDTO> dtos = translations.getContent().stream()
-                .map(ThreadCommentTranslationDTO:: new).collect(Collectors.toList());
+                .map(entity -> getDTOFromEntity(entity)).collect(Collectors.toList());
         return new PageImpl<>(dtos, pageable, translations.getTotalElements());
+    }
+
+    private ThreadCommentTranslationDTO getDTOFromEntity(ThreadCommentTranslation entity){
+        ThreadCommentTranslationDTO dto = new ThreadCommentTranslationDTO(entity);
+        CommentTranslationVote vote = commentTranslationVoteRepository.findByUserIdAndThreadCommentTranslationId(1L, entity.getId());
+        if(vote!=null){
+            dto.setUserVote(vote.getVote());
+        }
+        return dto;
     }
 
     public ThreadCommentTranslationDTO create(ThreadCommentTranslationDTO dto){
@@ -44,7 +56,11 @@ public class ThreadCommentTranslationServiceImpl {
         user.setId(1L);
         translation.setUser(user);
         translation.setMessage(dto.getMessage());
-        //translation.set
+
+        ThreadComment comment = new ThreadComment();
+        comment.setId(dto.getCommentId());
+        translation.setThreadComment(comment);
+        translation.setPoints(0);
         return new ThreadCommentTranslationDTO(threadCommentTranslationRepository.save(translation));
     }
 }

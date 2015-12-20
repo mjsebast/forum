@@ -16,6 +16,6 @@ create table thread_comment_translation (
                   ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-insert into thread_comment_translation (comment_id, user_id, language_id, message)VALUES(1, 1, 'es', 'Wow, es loco.');
+insert into thread_comment_translation (comment_id, user_id, language_id, message, points)VALUES(1, 1, 'es', 'Wow, es loco.', 1);
 insert into thread_comment_translation (comment_id, user_id, language_id, message)VALUES(1, 1, 'es', 'Es loco.');
 insert into thread_comment_translation (comment_id, user_id, language_id, message)VALUES(1, 1, 'es', 'Tu es loco.');
