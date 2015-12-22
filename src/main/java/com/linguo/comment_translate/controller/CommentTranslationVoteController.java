@@ -1,12 +1,12 @@
-package com.linguo.commenttranslate.controller;
+package com.linguo.comment_translate.controller;
 
-import com.linguo.commenttranslate.dto.CommentTranslationVoteDTO;
-import com.linguo.commenttranslate.service.CommentTranslationVoteServiceImpl;
+import com.linguo.comment_translate.dto.CommentTranslationVoteDTO;
+import com.linguo.comment_translate.service.CommentTranslationVoteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value="/thread_comment_translations/{id}/vote")
+@RequestMapping(value="/comment_translations/{id}/vote")
 public class CommentTranslationVoteController {
     @Autowired
     CommentTranslationVoteServiceImpl commentTranslationVoteService;

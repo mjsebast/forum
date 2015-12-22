@@ -1,13 +1,13 @@
-package com.linguo.commenttranslate.model;
+package com.linguo.comment_translate.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.linguo.thread.model.ThreadComment;
+import com.linguo.comment.model.Comment;
 import com.linguo.users.model.UserAccount;
 
 import javax.persistence.*;
 
 @Entity
-public class ThreadCommentTranslation {
+public class CommentTranslation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,7 +19,7 @@ public class ThreadCommentTranslation {
     @ManyToOne
     @JoinColumn(name="comment_id", nullable=false)
     @JsonIgnore
-    private ThreadComment threadComment;
+    private Comment comment;
 
     private Integer points;
     private String message;
@@ -42,12 +42,12 @@ public class ThreadCommentTranslation {
         this.user = user;
     }
 
-    public ThreadComment getThreadComment() {
-        return threadComment;
+    public Comment getComment() {
+        return comment;
     }
 
-    public void setThreadComment(ThreadComment threadComment) {
-        this.threadComment = threadComment;
+    public void setComment(Comment comment) {
+        this.comment = comment;
     }
 
     public Integer getPoints() {

@@ -1,6 +1,6 @@
-package com.linguo.thread.dto;
+package com.linguo.comment.dto;
 
-public class ThreadCommentFilterDTO{
+public class CommentFilterDTO {
     private Long threadId;
 
     public Long getThreadId() {

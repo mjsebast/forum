@@ -1,7 +1,7 @@
-package com.linguo.thread.dto;
+package com.linguo.comment.dto;
 
-import com.linguo.thread.model.ThreadComment;
-import com.linguo.thread.model.ThreadCommentContent;
+import com.linguo.comment.model.Comment;
+import com.linguo.comment.model.CommentContent;
 import com.linguo.users.dto.UserDTO;
 
 import java.util.ArrayList;
@@ -11,29 +11,31 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
-public class ThreadCommentDTO {
+public class CommentDTO {
 
     private Long id;
     private String language;
-    private Map<String, ThreadCommentContent> content = new HashMap<>();
+    private Map<String, CommentContent> content = new HashMap<>();
     private UserDTO user;
     private Long threadId;
-    private List<ThreadCommentDTO> children = new ArrayList<>();
+    private List<CommentDTO> children = new ArrayList<>();
     private Long parentId;
 
-    public ThreadCommentDTO(){}
+    public CommentDTO(){}
 
-    public ThreadCommentDTO(ThreadComment entity){
+    public CommentDTO(Comment entity){
         this.id = entity.getId();
         this.language = entity.getLanguageId();
         this.user = new UserDTO(entity.getUser());
         this.threadId = entity.getThread().getId();
-
-        for(ThreadCommentContent content: entity.getContent()){
+        if(entity.getParent()!=null){
+            this.parentId = entity.getParent().getId();
+        }
+        for(CommentContent content: entity.getContent()){
             this.content.put(content.getLanguageId(), content);
         }
         if(entity.getChildren()!=null){
-            this.children = entity.getChildren().stream().map(ThreadCommentDTO:: new).collect(Collectors.toList());
+            this.children = entity.getChildren().stream().map(CommentDTO:: new).collect(Collectors.toList());
         }
     }
 
@@ -53,11 +55,11 @@ public class ThreadCommentDTO {
         this.language = language;
     }
 
-    public Map<String, ThreadCommentContent> getContent() {
+    public Map<String, CommentContent> getContent() {
         return content;
     }
 
-    public void setContent(Map<String, ThreadCommentContent> content) {
+    public void setContent(Map<String, CommentContent> content) {
         this.content = content;
     }
 
@@ -77,11 +79,11 @@ public class ThreadCommentDTO {
         this.threadId = threadId;
     }
 
-    public List<ThreadCommentDTO> getChildren() {
+    public List<CommentDTO> getChildren() {
         return children;
     }
 
-    public void setChildren(List<ThreadCommentDTO> children) {
+    public void setChildren(List<CommentDTO> children) {
         this.children = children;
     }
 

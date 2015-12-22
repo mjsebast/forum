@@ -7,3 +7,6 @@ create table user_account (
 
 insert into user_account (username,email,password)
 VALUES('special_guy', 'test+dude@gmail.com', 'password');
+
+insert into user_account (username,email,password)
+VALUES('microsoft_translator', 'test+otherdude@gmail.com', 'password');

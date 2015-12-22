@@ -1,10 +1,10 @@
-package com.linguo.commenttranslate.dto;
+package com.linguo.comment_translate.dto;
 
 
-import com.linguo.commenttranslate.model.ThreadCommentTranslation;
+import com.linguo.comment_translate.model.CommentTranslation;
 import com.linguo.users.dto.UserDTO;
 
-public class ThreadCommentTranslationDTO {
+public class CommentTranslationDTO {
     private Long id;
     private Long commentId;
     private String language;
@@ -13,11 +13,11 @@ public class ThreadCommentTranslationDTO {
     private Integer points;
     private Integer userVote;
 
-    public ThreadCommentTranslationDTO(){}
+    public CommentTranslationDTO(){}
 
-    public ThreadCommentTranslationDTO(ThreadCommentTranslation entity){
+    public CommentTranslationDTO(CommentTranslation entity){
         this.id = entity.getId();
-        this.commentId = entity.getThreadComment().getId();
+        this.commentId = entity.getComment().getId();
         this.language = entity.getLanguageId();
         this.user = new UserDTO(entity.getUser());
         this.message = entity.getMessage();

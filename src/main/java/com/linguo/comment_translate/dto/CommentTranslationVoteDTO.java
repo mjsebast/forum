@@ -1,4 +1,4 @@
-package com.linguo.commenttranslate.dto;
+package com.linguo.comment_translate.dto;
 
 
 public class CommentTranslationVoteDTO {

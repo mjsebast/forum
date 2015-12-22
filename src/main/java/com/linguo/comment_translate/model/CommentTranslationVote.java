@@ -1,4 +1,4 @@
-package com.linguo.commenttranslate.model;
+package com.linguo.comment_translate.model;
 
 import com.linguo.users.model.UserAccount;
 
@@ -17,7 +17,7 @@ public class CommentTranslationVote {
 
     @ManyToOne
     @JoinColumn(name="comment_translation_id", nullable=false)
-    private ThreadCommentTranslation threadCommentTranslation;
+    private CommentTranslation commentTranslation;
 
     private Integer vote;
 
@@ -37,12 +37,12 @@ public class CommentTranslationVote {
         this.user = user;
     }
 
-    public ThreadCommentTranslation getThreadCommentTranslation() {
-        return threadCommentTranslation;
+    public CommentTranslation getCommentTranslation() {
+        return commentTranslation;
     }
 
-    public void setThreadCommentTranslation(ThreadCommentTranslation threadCommentTranslation) {
-        this.threadCommentTranslation = threadCommentTranslation;
+    public void setCommentTranslation(CommentTranslation commentTranslation) {
+        this.commentTranslation = commentTranslation;
     }
 
     public Integer getVote() {

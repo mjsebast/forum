@@ -1,12 +1,13 @@
-package com.linguo.thread.model;
+package com.linguo.comment.model;
 
+import com.linguo.thread.model.Thread;
 import com.linguo.users.model.UserAccount;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class ThreadComment {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,17 +19,17 @@ public class ThreadComment {
 
     @ManyToOne
     @JoinColumn(name="thread_id", nullable=false)
-    private Thread thread;
+    private com.linguo.thread.model.Thread thread;
 
-    @OneToMany(mappedBy = "threadComment", cascade = CascadeType.ALL)
-    private Set<ThreadCommentContent> content;
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    private Set<CommentContent> content;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    private Set<ThreadComment> children;
+    private Set<Comment> children;
 
     @ManyToOne
     @JoinColumn(name="parent_id")
-    private ThreadComment parent;
+    private Comment parent;
 
     private String languageId;
 
@@ -64,27 +65,27 @@ public class ThreadComment {
         this.languageId = languageId;
     }
 
-    public Set<ThreadCommentContent> getContent() {
+    public Set<CommentContent> getContent() {
         return content;
     }
 
-    public void setContent(Set<ThreadCommentContent> content) {
+    public void setContent(Set<CommentContent> content) {
         this.content = content;
     }
 
-    public Set<ThreadComment> getChildren() {
+    public Set<Comment> getChildren() {
         return children;
     }
 
-    public void setChildren(Set<ThreadComment> children) {
+    public void setChildren(Set<Comment> children) {
         this.children = children;
     }
 
-    public ThreadComment getParent() {
+    public Comment getParent() {
         return parent;
     }
 
-    public void setParent(ThreadComment parent) {
+    public void setParent(Comment parent) {
         this.parent = parent;
     }
 }

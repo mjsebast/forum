@@ -1,11 +1,11 @@
-package com.linguo.thread.model;
+package com.linguo.comment.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
 @Entity
-public class ThreadCommentContent {
+public class CommentContent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class ThreadCommentContent {
     @ManyToOne
     @JoinColumn(name="comment_id", nullable=false)
     @JsonIgnore
-    private ThreadComment threadComment;
+    private Comment comment;
 
     public Long getId() {
         return id;
@@ -42,11 +42,11 @@ public class ThreadCommentContent {
         this.message = message;
     }
 
-    public ThreadComment getThreadComment() {
-        return threadComment;
+    public Comment getComment() {
+        return comment;
     }
 
-    public void setThreadComment(ThreadComment threadComment) {
-        this.threadComment = threadComment;
+    public void setComment(Comment comment) {
+        this.comment = comment;
     }
 }
