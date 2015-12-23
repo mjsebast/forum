@@ -55,11 +55,16 @@ public class CommentServiceImpl {
 
     private CommentDTO getCommentDTO(Comment comment){
         CommentDTO dto = new CommentDTO(comment);
-        CommentVote vote = commentVoteRepository.findByUserIdAndCommentId(1L, comment.getId());
+        setUserVote(dto);
+        dto.getChildren().stream().forEach(child -> setUserVote(child));
+        return dto;
+    }
+
+    private void setUserVote(CommentDTO dto){
+        CommentVote vote = commentVoteRepository.findByUserIdAndCommentId(1L, dto.getId());
         if(vote!=null){
             dto.setUserVote(vote.getVote());
         }
-        return dto;
     }
 
     public CommentDTO create(CommentDTO dto){
