@@ -20,6 +20,8 @@ public class CommentDTO {
     private Long threadId;
     private List<CommentDTO> children = new ArrayList<>();
     private Long parentId;
+    private Integer points;
+    private Integer userVote;
 
     public CommentDTO(){}
 
@@ -28,6 +30,7 @@ public class CommentDTO {
         this.language = entity.getLanguageId();
         this.user = new UserDTO(entity.getUser());
         this.threadId = entity.getThread().getId();
+        this.points = entity.getPoints();
         if(entity.getParent()!=null){
             this.parentId = entity.getParent().getId();
         }
@@ -93,5 +96,21 @@ public class CommentDTO {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
+    public Integer getUserVote() {
+        return userVote;
+    }
+
+    public void setUserVote(Integer userVote) {
+        this.userVote = userVote;
     }
 }

@@ -1,5 +1,7 @@
 package com.linguo.comment.service;
 
+import com.linguo.comment.model.CommentVote;
+import com.linguo.comment.repository.CommentVoteRepository;
 import com.linguo.comment_translate.model.CommentTranslation;
 import com.linguo.comment_translate.repository.CommentTranslationRepository;
 import com.linguo.comment.dto.CommentDTO;
@@ -35,17 +37,29 @@ public class CommentServiceImpl {
     @Autowired
     CommentTranslationRepository commentTranslationRepository;
 
+    @Autowired
+    CommentVoteRepository commentVoteRepository;
+
     public CommentDTO findById(Long id){
         return new CommentDTO(commentRepository.findOne(id));
     }
 
     public Page<CommentDTO> findByPage(CommentFilterDTO filter, Pageable pageable){
-        Page<Comment> threads = filter.getThreadId()!=null ?
+        Page<Comment> comments = filter.getThreadId()!=null ?
                 commentRepository.findByThreadIdAndParentIdIsNull(filter.getThreadId(), pageable):
                 commentRepository.findAll(pageable);
-        List<CommentDTO> dtos = threads.getContent().stream()
-                .map(CommentDTO:: new).collect(Collectors.toList());
-        return new PageImpl<>(dtos, pageable, threads.getTotalElements());
+        List<CommentDTO> dtos = comments.getContent().stream()
+                .map(comment -> getCommentDTO(comment)).collect(Collectors.toList());
+        return new PageImpl<>(dtos, pageable, comments.getTotalElements());
+    }
+
+    private CommentDTO getCommentDTO(Comment comment){
+        CommentDTO dto = new CommentDTO(comment);
+        CommentVote vote = commentVoteRepository.findByUserIdAndCommentId(1L, comment.getId());
+        if(vote!=null){
+            dto.setUserVote(vote.getVote());
+        }
+        return dto;
     }
 
     public CommentDTO create(CommentDTO dto){

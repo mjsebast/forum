@@ -32,6 +32,7 @@ public class Comment {
     private Comment parent;
 
     private String languageId;
+    private Integer points;
 
     public Long getId() {
         return id;
@@ -87,5 +88,13 @@ public class Comment {
 
     public void setParent(Comment parent) {
         this.parent = parent;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 }
