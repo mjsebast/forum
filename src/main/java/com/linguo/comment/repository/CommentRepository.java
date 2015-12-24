@@ -7,6 +7,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 
 public interface CommentRepository extends PagingAndSortingRepository<Comment, Long> {
-    Page<Comment> findByThreadId(Long threadId, Pageable pageable);
-    Page<Comment> findByThreadIdAndParentIdIsNull(Long threadId, Pageable pageable);
+    Page<Comment> findByPostId(Long postId, Pageable pageable);
+    Page<Comment> findByPostIdAndParentIdIsNull(Long postId, Pageable pageable);
 }

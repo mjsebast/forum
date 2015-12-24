@@ -1,6 +1,6 @@
 package com.linguo.comment.model;
 
-import com.linguo.thread.model.Thread;
+import com.linguo.post.model.Post;
 import com.linguo.users.model.UserAccount;
 
 import javax.persistence.*;
@@ -18,8 +18,8 @@ public class Comment {
     private UserAccount user;
 
     @ManyToOne
-    @JoinColumn(name="thread_id", nullable=false)
-    private com.linguo.thread.model.Thread thread;
+    @JoinColumn(name="post_id", nullable=false)
+    private Post post;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
     private Set<CommentContent> content;
@@ -50,12 +50,12 @@ public class Comment {
         this.user = user;
     }
 
-    public Thread getThread() {
-        return thread;
+    public Post getPost() {
+        return post;
     }
 
-    public void setThread(Thread thread) {
-        this.thread = thread;
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     public String getLanguageId() {

@@ -6,7 +6,7 @@ import com.linguo.comment_translate.model.CommentTranslation;
 import com.linguo.comment_translate.repository.CommentTranslationRepository;
 import com.linguo.comment.dto.CommentDTO;
 import com.linguo.comment.dto.CommentFilterDTO;
-import com.linguo.thread.model.Thread;
+import com.linguo.post.model.Post;
 import com.linguo.comment.model.Comment;
 import com.linguo.comment.model.CommentContent;
 import com.linguo.comment.repository.CommentRepository;
@@ -45,8 +45,8 @@ public class CommentServiceImpl {
     }
 
     public Page<CommentDTO> findByPage(CommentFilterDTO filter, Pageable pageable){
-        Page<Comment> comments = filter.getThreadId()!=null ?
-                commentRepository.findByThreadIdAndParentIdIsNull(filter.getThreadId(), pageable):
+        Page<Comment> comments = filter.getPostId()!=null ?
+                commentRepository.findByPostIdAndParentIdIsNull(filter.getPostId(), pageable) :
                 commentRepository.findAll(pageable);
         List<CommentDTO> dtos = comments.getContent().stream()
                 .map(comment -> getCommentDTO(comment)).collect(Collectors.toList());
@@ -79,9 +79,9 @@ public class CommentServiceImpl {
             comment.setParent(parent);
         }
 
-        Thread thread = new Thread();
-        thread.setId(dto.getThreadId());
-        comment.setThread(thread);
+        Post post = new Post();
+        post.setId(dto.getPostId());
+        comment.setPost(post);
         Set<CommentContent> contents = new HashSet<>();
         CommentContent content = dto.getContent().get(dto.getLanguage());
         content.setComment(comment);
@@ -100,6 +100,7 @@ public class CommentServiceImpl {
         contents.add(secondary);
 
         comment.setContent(contents);
+        comment.setPoints(0);
         comment = commentRepository.save(comment);
 
         CommentTranslation autoTranslation = new CommentTranslation();

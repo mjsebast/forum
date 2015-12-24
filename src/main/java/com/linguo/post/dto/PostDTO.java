@@ -1,29 +1,29 @@
-package com.linguo.thread.dto;
+package com.linguo.post.dto;
 
 
-import com.linguo.thread.model.Thread;
-import com.linguo.thread.model.ThreadContent;
+import com.linguo.post.model.Post;
+import com.linguo.post.model.PostContent;
 import com.linguo.users.dto.UserDTO;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ThreadDTO {
+public class PostDTO {
     private Long id;
     private String language;
     private String url;
-    private Map<String,ThreadContent> content = new HashMap<String, ThreadContent>();
+    private Map<String,PostContent> content = new HashMap<String, PostContent>();
     private UserDTO user;
 
-    public ThreadDTO(){}
+    public PostDTO(){}
 
-    public ThreadDTO(Thread entity){
+    public PostDTO(Post entity){
         this.id = entity.getId();
         this.language = entity.getLanguageId();
         this.url = entity.getUrl();
         this.user = new UserDTO(entity.getUser());
 
-        for(ThreadContent content: entity.getContent()){
+        for(PostContent content: entity.getContent()){
             this.content.put(content.getLanguageId(), content);
         }
     }
@@ -52,11 +52,11 @@ public class ThreadDTO {
         this.url = url;
     }
 
-    public Map<String, ThreadContent> getContent() {
+    public Map<String, PostContent> getContent() {
         return content;
     }
 
-    public void setContent(Map<String, ThreadContent> content) {
+    public void setContent(Map<String, PostContent> content) {
         this.content = content;
     }
 

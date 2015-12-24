@@ -1,4 +1,4 @@
-package com.linguo.thread.model;
+package com.linguo.post.model;
 
 import com.linguo.forum.Forum;
 import com.linguo.users.model.UserAccount;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Thread {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +20,8 @@ public class Thread {
     private UserAccount user;
     private String languageId;
     private String url;
-    @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL)
-    private Set<ThreadContent> content;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private Set<PostContent> content;
 
     public Long getId() {
         return id;
@@ -63,11 +63,11 @@ public class Thread {
         this.url = url;
     }
 
-    public Set<ThreadContent> getContent() {
+    public Set<PostContent> getContent() {
         return content;
     }
 
-    public void setContent(Set<ThreadContent> content) {
+    public void setContent(Set<PostContent> content) {
         this.content = content;
     }
 }

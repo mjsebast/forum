@@ -17,7 +17,7 @@ public class CommentDTO {
     private String language;
     private Map<String, CommentContent> content = new HashMap<>();
     private UserDTO user;
-    private Long threadId;
+    private Long postId;
     private List<CommentDTO> children = new ArrayList<>();
     private Long parentId;
     private Integer points;
@@ -29,7 +29,7 @@ public class CommentDTO {
         this.id = entity.getId();
         this.language = entity.getLanguageId();
         this.user = new UserDTO(entity.getUser());
-        this.threadId = entity.getThread().getId();
+        this.postId = entity.getPost().getId();
         this.points = entity.getPoints();
         if(entity.getParent()!=null){
             this.parentId = entity.getParent().getId();
@@ -74,12 +74,12 @@ public class CommentDTO {
         this.user = user;
     }
 
-    public Long getThreadId() {
-        return threadId;
+    public Long getPostId() {
+        return postId;
     }
 
-    public void setThreadId(Long threadId) {
-        this.threadId = threadId;
+    public void setPostId(Long postId) {
+        this.postId = postId;
     }
 
     public List<CommentDTO> getChildren() {

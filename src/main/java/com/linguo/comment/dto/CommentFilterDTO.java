@@ -1,13 +1,13 @@
 package com.linguo.comment.dto;
 
 public class CommentFilterDTO {
-    private Long threadId;
+    private Long postId;
 
-    public Long getThreadId() {
-        return threadId;
+    public Long getPostId() {
+        return postId;
     }
 
-    public void setThreadId(Long threadId) {
-        this.threadId = threadId;
+    public void setPostId(Long postId) {
+        this.postId = postId;
     }
 }

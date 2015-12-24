@@ -1,20 +1,19 @@
-package com.linguo.thread.model;
+package com.linguo.post.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.linguo.thread.model.Thread;
 
 import javax.persistence.*;
 
 @Entity
-public class ThreadContent {
+public class PostContent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="thread_id", nullable=false)
+    @JoinColumn(name="post_id", nullable=false)
     @JsonIgnore
-    private Thread thread;
+    private Post post;
     private String languageId;
     private String title;
     private String message;
@@ -27,12 +26,12 @@ public class ThreadContent {
         this.id = id;
     }
 
-    public Thread getThread() {
-        return thread;
+    public Post getPost() {
+        return post;
     }
 
-    public void setThread(Thread thread) {
-        this.thread = thread;
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     public String getLanguageId() {

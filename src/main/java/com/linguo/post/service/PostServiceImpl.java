@@ -1,10 +1,10 @@
-package com.linguo.thread.service;
+package com.linguo.post.service;
 
 import com.linguo.forum.Forum;
-import com.linguo.thread.dto.ThreadDTO;
-import com.linguo.thread.model.Thread;
-import com.linguo.thread.model.ThreadContent;
-import com.linguo.thread.repository.ThreadRepository;
+import com.linguo.post.dto.PostDTO;
+import com.linguo.post.model.Post;
+import com.linguo.post.model.PostContent;
+import com.linguo.post.repository.PostRepository;
 import com.linguo.common.dto.TranslationDTO;
 import com.linguo.common.util.TranslationService;
 import com.linguo.users.model.UserAccount;
@@ -22,26 +22,26 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class ThreadServiceImpl {
+public class PostServiceImpl {
     @Autowired
-    ThreadRepository threadRepository;
+    PostRepository postRepository;
 
     @Autowired
     TranslationService translationService;
 
-    public ThreadDTO findById(Long id){
-        return new ThreadDTO(threadRepository.findOne(id));
+    public PostDTO findById(Long id){
+        return new PostDTO(postRepository.findOne(id));
     }
 
-    public Page<ThreadDTO> findByPage(Pageable pageable){
-        Page<Thread> threads = threadRepository.findAll(pageable);
-        List<ThreadDTO> dtos = threads.getContent().stream()
-                .map(ThreadDTO:: new).collect(Collectors.toList());
+    public Page<PostDTO> findByPage(Pageable pageable){
+        Page<Post> threads = postRepository.findAll(pageable);
+        List<PostDTO> dtos = threads.getContent().stream()
+                .map(PostDTO:: new).collect(Collectors.toList());
         return new PageImpl<>(dtos, pageable, threads.getTotalElements());
     }
 
-    public ThreadDTO create(ThreadDTO dto){
-        Thread entity = new Thread();
+    public PostDTO create(PostDTO dto){
+        Post entity = new Post();
         entity.setLanguageId(dto.getLanguage());
         Forum forum = new Forum();
         forum.setId(1L);
@@ -50,10 +50,10 @@ public class ThreadServiceImpl {
         user.setId(1L);
         entity.setUser(user);
         entity.setUrl(dto.getUrl());
-        Set<ThreadContent> contents = new HashSet<ThreadContent>();
+        Set<PostContent> contents = new HashSet<PostContent>();
         for(String key: dto.getContent().keySet()){
-            ThreadContent content = dto.getContent().get(key);
-            content.setThread(entity);
+            PostContent content = dto.getContent().get(key);
+            content.setPost(entity);
             content.setLanguageId(key);
             contents.add(content);
 
@@ -62,15 +62,15 @@ public class ThreadServiceImpl {
             translationDTO.addText(content.getTitle());
             String[] translations = translationService.translateContent(translationDTO);
 
-            ThreadContent secondary = new ThreadContent();
+            PostContent secondary = new PostContent();
             secondary.setLanguageId(translationDTO.getTo());
             secondary.setMessage(translations[0]);
             secondary.setTitle(translations[1]);
-            secondary.setThread(entity);
+            secondary.setPost(entity);
             contents.add(secondary);
         }
         entity.setContent(contents);
-        return new ThreadDTO(threadRepository.save(entity));
+        return new PostDTO(postRepository.save(entity));
     }
 
 
