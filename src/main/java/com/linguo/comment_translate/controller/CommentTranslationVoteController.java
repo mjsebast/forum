@@ -15,5 +15,4 @@ public class CommentTranslationVoteController {
     public CommentTranslationVoteDTO create(@PathVariable Long id, @RequestBody CommentTranslationVoteDTO dto){
         return commentTranslationVoteService.create(id, dto);
     }
-
 }
