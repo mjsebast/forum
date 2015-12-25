@@ -4,6 +4,7 @@ create table post (
     user_id bigint NOT NULL,
     language_id varchar(2) NOT NULL,
     url varchar(1000) NULL,
+    points numeric DEFAULT 0 NOT NULL,
     CONSTRAINT fk1_post_forum FOREIGN KEY (forum_id)
           REFERENCES forum (id) MATCH SIMPLE
           ON UPDATE CASCADE ON DELETE CASCADE,

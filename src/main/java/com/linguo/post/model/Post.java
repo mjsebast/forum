@@ -22,6 +22,7 @@ public class Post {
     private String url;
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private Set<PostContent> content;
+    private Integer points;
 
     public Long getId() {
         return id;
@@ -69,5 +70,13 @@ public class Post {
 
     public void setContent(Set<PostContent> content) {
         this.content = content;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 }

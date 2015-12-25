@@ -4,9 +4,11 @@ import com.linguo.forum.Forum;
 import com.linguo.post.dto.PostDTO;
 import com.linguo.post.model.Post;
 import com.linguo.post.model.PostContent;
+import com.linguo.post.model.PostVote;
 import com.linguo.post.repository.PostRepository;
 import com.linguo.common.dto.TranslationDTO;
 import com.linguo.common.util.TranslationService;
+import com.linguo.post.repository.PostVoteRepository;
 import com.linguo.users.model.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,8 @@ import java.util.stream.Collectors;
 public class PostServiceImpl {
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    PostVoteRepository postVoteRepository;
 
     @Autowired
     TranslationService translationService;
@@ -34,10 +38,23 @@ public class PostServiceImpl {
     }
 
     public Page<PostDTO> findByPage(Pageable pageable){
-        Page<Post> threads = postRepository.findAll(pageable);
-        List<PostDTO> dtos = threads.getContent().stream()
-                .map(PostDTO:: new).collect(Collectors.toList());
-        return new PageImpl<>(dtos, pageable, threads.getTotalElements());
+        Page<Post> posts = postRepository.findAll(pageable);
+        List<PostDTO> dtos = posts.getContent().stream()
+                .map(post -> getPostDTO(post)).collect(Collectors.toList());
+        return new PageImpl<>(dtos, pageable, posts.getTotalElements());
+    }
+
+    private PostDTO getPostDTO(Post post){
+        PostDTO dto = new PostDTO(post);
+        setUserVote(dto);
+        return dto;
+    }
+
+    private void setUserVote(PostDTO dto){
+        PostVote vote = postVoteRepository.findByUserIdAndPostId(1L, dto.getId());
+        if(vote!=null){
+            dto.setUserVote(vote.getVote());
+        }
     }
 
     public PostDTO create(PostDTO dto){

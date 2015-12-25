@@ -14,6 +14,8 @@ public class PostDTO {
     private String url;
     private Map<String,PostContent> content = new HashMap<String, PostContent>();
     private UserDTO user;
+    private Integer userVote;
+    private Integer points;
 
     public PostDTO(){}
 
@@ -22,7 +24,7 @@ public class PostDTO {
         this.language = entity.getLanguageId();
         this.url = entity.getUrl();
         this.user = new UserDTO(entity.getUser());
-
+        this.points = entity.getPoints();
         for(PostContent content: entity.getContent()){
             this.content.put(content.getLanguageId(), content);
         }
@@ -66,5 +68,21 @@ public class PostDTO {
 
     public void setUser(UserDTO user) {
         this.user = user;
+    }
+
+    public Integer getUserVote() {
+        return userVote;
+    }
+
+    public void setUserVote(Integer userVote) {
+        this.userVote = userVote;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 }
