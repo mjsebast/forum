@@ -3,7 +3,7 @@ create table comment_translation (
     comment_id bigint NOT NULL,
     user_id bigint NOT NULL,
     language_id varchar(2) NOT NULL,
-    message varchar(1000) NOT NULL,
+    message varchar(10000) NOT NULL,
     points numeric DEFAULT 0 NOT NULL,
     CONSTRAINT fk1_comment_translation_comment FOREIGN KEY (comment_id)
           REFERENCES comment (id) MATCH SIMPLE

@@ -3,7 +3,7 @@ create table post_title_translation (
     post_id bigint NOT NULL,
     user_id bigint NOT NULL,
     language_id varchar(2) NOT NULL,
-    message varchar(1000) NOT NULL,
+    message varchar(10000) NOT NULL,
     points numeric DEFAULT 0 NOT NULL,
     CONSTRAINT fk1_post_title_translation_post FOREIGN KEY (post_id)
           REFERENCES post (id) MATCH SIMPLE

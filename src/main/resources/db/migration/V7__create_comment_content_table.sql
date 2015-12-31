@@ -2,7 +2,7 @@ create table comment_content (
     id bigserial primary key,
     comment_id bigint NOT NULL,
     language_id varchar(2) NOT NULL,
-    message varchar(1000) not null,
+    message varchar(10000) not null,
     CONSTRAINT fk1_comment_content_comment FOREIGN KEY (comment_id)
           REFERENCES comment (id) MATCH SIMPLE
           ON UPDATE CASCADE ON DELETE CASCADE,

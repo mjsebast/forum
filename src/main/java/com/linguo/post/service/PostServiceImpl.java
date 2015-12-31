@@ -87,6 +87,7 @@ public class PostServiceImpl {
             contents.add(secondary);
         }
         entity.setContent(contents);
+        entity.setPoints(0);
         return new PostDTO(postRepository.save(entity));
     }
 

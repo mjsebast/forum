@@ -2,8 +2,8 @@ create table post_content (
     id bigserial primary key,
     post_id bigint NOT NULL,
     language_id varchar(2) NOT NULL,
-    title varchar(100) not null,
-    message varchar(1000) not null,
+    title varchar(1000) not null,
+    message varchar(10000) not null,
     CONSTRAINT fk1_post_content_thread FOREIGN KEY (post_id)
           REFERENCES post (id) MATCH SIMPLE
           ON UPDATE CASCADE ON DELETE CASCADE,
